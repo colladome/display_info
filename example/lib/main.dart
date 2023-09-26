@@ -31,10 +31,6 @@ class _MyAppState extends State<MyApp> {
     try {
       final screens = await DisplayInfo.getConnectedDisplays();
 
-      setState(() {
-        _platformVersion = screens.toString();
-      });
-
       final display = screens.first;
 
       final heightPixels = double.parse(display.heightPixels.toString());
@@ -48,6 +44,10 @@ class _MyAppState extends State<MyApp> {
           sqrt((widthInches * widthInches) + (heightInches * heightInches));
 
       dev.log(screenSizeInches.toString());
+
+      setState(() {
+        _platformVersion = screenSizeInches.toString();
+      });
 
       dev.log(screens.toString());
     } on PlatformException catch (e) {
