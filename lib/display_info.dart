@@ -30,22 +30,27 @@ class DisplayInfo {
 class DisplayInfoData {
   final dynamic widthPixels;
   final dynamic heightPixels;
-  final dynamic densityDpi;
+  final dynamic yDpi;
+  final dynamic xDpi;
+
   DisplayInfoData({
     required this.widthPixels,
     required this.heightPixels,
-    required this.densityDpi,
+    required this.yDpi,
+    required this.xDpi,
   });
 
   DisplayInfoData copyWith({
     dynamic widthPixels,
     dynamic heightPixels,
-    dynamic densityDpi,
+    dynamic yDpi,
+    dynamic xDpi,
   }) {
     return DisplayInfoData(
       widthPixels: widthPixels ?? this.widthPixels,
       heightPixels: heightPixels ?? this.heightPixels,
-      densityDpi: densityDpi ?? this.densityDpi,
+      yDpi: yDpi ?? this.yDpi,
+      xDpi: xDpi ?? this.xDpi,
     );
   }
 
@@ -53,7 +58,6 @@ class DisplayInfoData {
     return <String, dynamic>{
       'widthPixels': widthPixels,
       'heightPixels': heightPixels,
-      'densityDpi': densityDpi,
     };
   }
 
@@ -61,11 +65,12 @@ class DisplayInfoData {
     return DisplayInfoData(
       widthPixels: map['widthPixels'] as dynamic,
       heightPixels: map['heightPixels'] as dynamic,
-      densityDpi: map['densityDpi'] as dynamic,
+      yDpi: map['yDpi'] as dynamic,
+      xDpi: map['xDpi'] as dynamic,
     );
   }
 
   @override
   String toString() =>
-      'DisplayInfoData(widthPixels: $widthPixels, heightPixels: $heightPixels, densityDpi: $densityDpi)';
+      'DisplayInfoData(widthPixels: $widthPixels, heightPixels: $heightPixels, yDpi : $yDpi, xDpi : $xDpi)';
 }

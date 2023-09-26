@@ -35,10 +35,11 @@ class _MyAppState extends State<MyApp> {
 
       final heightPixels = double.parse(display.heightPixels.toString());
       final widthPixels = double.parse(display.widthPixels.toString());
-      final densityDpi = double.parse(display.densityDpi.toString());
+      var xDpi = display.xDpi;
+      var yDpi = display.yDpi;
 
-      var widthInches = widthPixels / densityDpi.toDouble();
-      var heightInches = heightPixels / densityDpi.toDouble();
+      var widthInches = widthPixels / xDpi.toDouble();
+      var heightInches = heightPixels / yDpi.toDouble();
 
       var screenSizeInches =
           sqrt((widthInches * widthInches) + (heightInches * heightInches));
@@ -46,7 +47,7 @@ class _MyAppState extends State<MyApp> {
       dev.log(screenSizeInches.toString());
 
       setState(() {
-        _platformVersion = screenSizeInches.toString();
+        _platformVersion = screenSizeInches.toString() + display.toString();
       });
 
       dev.log(screens.toString());

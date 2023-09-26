@@ -52,18 +52,21 @@ class DisplayInfoPlugin : FlutterPlugin, MethodChannel.MethodCallHandler {
         val metrics = DisplayMetrics()
 
 
-        display.getMetrics(metrics)
+        display.getRealMetrics(metrics)
+
+        val xDpi = metrics.xdpi
+        val yDpi = metrics.ydpi
 
 
         val widthPixels = metrics.widthPixels
         val heightPixels = metrics.heightPixels
-        val densityDpi = metrics.densityDpi
 
 
         val displayMap = mapOf(
                     "widthPixels" to widthPixels,
                     "heightPixels" to heightPixels,
-                    "densityDpi" to densityDpi,
+                    "xDpi" to xDpi,
+                    "yDpi" to yDpi
 
                 )
 
