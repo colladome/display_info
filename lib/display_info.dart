@@ -1,3 +1,4 @@
+// ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'dart:async';
 import 'dart:developer';
 
@@ -27,35 +28,44 @@ class DisplayInfo {
 }
 
 class DisplayInfoData {
-  final int displayId;
-  final String name;
-  final int width;
-  final int height;
-  final double refreshRate;
-  final bool isPrimary;
-
+  final dynamic widthPixels;
+  final dynamic heightPixels;
+  final dynamic densityDpi;
   DisplayInfoData({
-    required this.displayId,
-    required this.name,
-    required this.width,
-    required this.height,
-    required this.refreshRate,
-    required this.isPrimary,
+    required this.widthPixels,
+    required this.heightPixels,
+    required this.densityDpi,
   });
+
+  DisplayInfoData copyWith({
+    dynamic widthPixels,
+    dynamic heightPixels,
+    dynamic densityDpi,
+  }) {
+    return DisplayInfoData(
+      widthPixels: widthPixels ?? this.widthPixels,
+      heightPixels: heightPixels ?? this.heightPixels,
+      densityDpi: densityDpi ?? this.densityDpi,
+    );
+  }
+
+  Map<String, dynamic> toMap() {
+    return <String, dynamic>{
+      'widthPixels': widthPixels,
+      'heightPixels': heightPixels,
+      'densityDpi': densityDpi,
+    };
+  }
 
   factory DisplayInfoData.fromMap(Map<dynamic, dynamic> map) {
     return DisplayInfoData(
-      displayId: map['displayId'],
-      name: map['name'],
-      width: map['width'],
-      height: map['height'],
-      refreshRate: map['refreshRate'],
-      isPrimary: map['isPrimary'],
+      widthPixels: map['widthPixels'] as dynamic,
+      heightPixels: map['heightPixels'] as dynamic,
+      densityDpi: map['densityDpi'] as dynamic,
     );
   }
 
   @override
-  String toString() {
-    return 'DisplayInfoData(displayId: $displayId, name: $name, width: $width, height: $height, refreshRate: $refreshRate, isPrimary: $isPrimary)';
-  }
+  String toString() =>
+      'DisplayInfoData(widthPixels: $widthPixels, heightPixels: $heightPixels, densityDpi: $densityDpi)';
 }

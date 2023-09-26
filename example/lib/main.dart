@@ -1,4 +1,5 @@
-import 'dart:developer';
+import 'dart:developer' as dev;
+import 'dart:math';
 
 import 'package:flutter/material.dart';
 import 'dart:async';
@@ -34,11 +35,25 @@ class _MyAppState extends State<MyApp> {
         _platformVersion = screens.toString();
       });
 
-      log(screens.toString());
+      final display = screens.first;
+
+      final heightPixels = double.parse(display.heightPixels.toString());
+      final widthPixels = double.parse(display.widthPixels.toString());
+      final densityDpi = double.parse(display.densityDpi.toString());
+
+      var widthInches = widthPixels / densityDpi.toDouble();
+      var heightInches = heightPixels / densityDpi.toDouble();
+
+      var screenSizeInches =
+          sqrt((widthInches * widthInches) + (heightInches * heightInches));
+
+      dev.log(screenSizeInches.toString());
+
+      dev.log(screens.toString());
     } on PlatformException catch (e) {
-      log(e.message!);
+      dev.log(e.message!);
     } catch (e) {
-      log(e.toString());
+      dev.log(e.toString());
     }
   }
 

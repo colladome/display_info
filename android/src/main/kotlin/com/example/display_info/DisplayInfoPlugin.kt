@@ -1,9 +1,12 @@
 package com.example.display_info
 
 import android.content.Context
+import android.util.DisplayMetrics
+import android.view.WindowManager
 import android.hardware.display.DisplayManager
 import android.os.Build
 import android.view.Display
+
 
 import androidx.annotation.NonNull
 import io.flutter.embedding.engine.plugins.FlutterPlugin
@@ -44,21 +47,44 @@ class DisplayInfoPlugin : FlutterPlugin, MethodChannel.MethodCallHandler {
     private fun getConnectedDisplayNames(): List<Map<String, Any>> {
         val displayList = mutableListOf<Map<String, Any>>()
 
-        val displayManager = context.getSystemService(Context.DISPLAY_SERVICE) as DisplayManager?
-        if (displayManager != null) {
-            val displays = displayManager.displays
-            for (display in displays) {
-                val displayMap = mapOf(
-                    "displayId" to display.displayId,
-                    "name" to display.name,
-                    "width" to display.width,
-                    "height" to display.height,
-                    "refreshRate" to display.refreshRate,
-                    "isPrimary" to (display.displayId == Display.DEFAULT_DISPLAY)
+        val windowManager = context.getSystemService(Context.WINDOW_SERVICE) as WindowManager
+        val display = windowManager.defaultDisplay
+        val metrics = DisplayMetrics()
+
+
+        display.getMetrics(metrics)
+
+
+        val widthPixels = metrics.widthPixels
+        val heightPixels = metrics.heightPixels
+        val densityDpi = metrics.densityDpi
+
+
+        val displayMap = mapOf(
+                    "widthPixels" to widthPixels,
+                    "heightPixels" to heightPixels,
+                    "densityDpi" to densityDpi,
+
                 )
-                displayList.add(displayMap)
-            }
-        }
+
+        displayList.add(displayMap)
+
+//        val displayManager = context.getSystemService(Context.DISPLAY_SERVICE) as DisplayManager?
+//        if (displayManager != null) {
+//            val displays = displayManager.displays
+//            for (display in displays) {
+//                val displayMap = mapOf(
+//                    "displayId" to display.displayId,
+//                    "name" to display.name,
+//                    "width" to display.width,
+//                    "height" to display.height,
+//                    "refreshRate" to display.refreshRate,
+//                    "size" to display.getRealSize(),
+//                    "isPrimary" to (display.displayId == Display.DEFAULT_DISPLAY)
+//                )
+//                displayList.add(displayMap)
+//            }
+//        }
 
         return displayList
     }
